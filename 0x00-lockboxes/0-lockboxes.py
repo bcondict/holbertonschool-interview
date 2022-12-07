@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-""" This module contains a function that checks if lockboxes can be opened by the keys inside them"""
+"""
+This module contains a function that checks if lockboxes
+can be opened by the keys inside them
+"""
+
 
 def canUnlockAll(boxes):
     """Checks if all boxes can be unlocked"""
