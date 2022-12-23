@@ -22,11 +22,16 @@ typedef struct binary_tree_s
 	struct binary_tree_s *right;
 } binary_tree_t;
 
-/*typedef struct binary_tree_s heap_t;*/
+typedef struct binary_tree_s heap_t;
+
+void binary_tree_print(const binary_tree_t *tree);
 
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
-void binary_tree_print(const binary_tree_t *tree);
-/*heap_t *heap_insert(heap_t **root, int value);*/
+
+heap_t *heap_insert(heap_t **root, int value);
+size_t binary_tree_height(heap_t *root);
+heap_t *find_location(heap_t *root, size_t level);
+heap_t *swap_child(heap_t **root, heap_t *new);
 
 
 #endif /*_BINARY_TREES_H_*/
