@@ -19,7 +19,7 @@ def minOperations(n):
         Method: Given a number n calculates the fewest number of operations
         needed to result in exactly n amount of characters in the file.
     """
-    if n < 1 or type(n) is not int:
+    if n <= 1 or type(n) is not int:
         return 0
 
     my_num = 1
