@@ -3,7 +3,6 @@
     given a number and a character
     print char amount of times than number indicates in the minimum operations
 """
-import math
 
 
 def is_prime(num):
