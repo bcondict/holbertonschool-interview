@@ -6,12 +6,12 @@
 import math
 
 
-# def is_prime(num):
-#     """check if a number is prime"""
-#     for n in range(2, num):
-#         if num % n == 0:
-#             return n
-#     return 0
+def is_prime(num):
+    """check if a number is prime"""
+    for n in range(2, num):
+        if num % n == 0:
+            return False
+    return True
 
 
 def minOperations(n):
@@ -19,14 +19,14 @@ def minOperations(n):
         Method: Given a number n calculates the fewest number of operations
         needed to result in exactly n amount of characters in the file.
     """
-    if math.isinf(n):
+    if math.isinf(n) or n < 1:
         return 0
 
     my_num = 1
     adition = 1
 
-    # if is_prime(n) == 0:
-    #     return n
+    if is_prime(n):
+        return n
 
     num_operations = 1
     for index in range(n):
