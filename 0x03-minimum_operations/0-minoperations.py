@@ -29,9 +29,7 @@ def minOperations(n):
         return n
 
     num_operations = 1
-    for index in range(n):
-        if (my_num == n):
-            return num_operations
+    while my_num != n:
         if (my_num != 1 and n % my_num == 0):
             num_operations += 1
             adition = my_num
