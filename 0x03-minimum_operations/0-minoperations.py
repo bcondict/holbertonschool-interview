@@ -19,7 +19,7 @@ def minOperations(n):
         Method: Given a number n calculates the fewest number of operations
         needed to result in exactly n amount of characters in the file.
     """
-    if math.isinf(n):
+    if math.isinf(n) or n < 0:
         return 0
 
     my_num = 1
@@ -38,3 +38,6 @@ def minOperations(n):
         num_operations += 1
         my_num += adition
     return num_operations
+
+n = -1
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
