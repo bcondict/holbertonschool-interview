@@ -31,12 +31,13 @@ int *to_array(listint_t **head, int size)
 {
 	int *new_array = NULL;
 	int i = 0;
+	listint_t *temp = NULL;
 
 	new_array = malloc(sizeof(int) * size);
 	if (new_array == NULL)
 		return (NULL); 
 
-	listint_t *temp = *head;
+	temp = *head;
 	for (i = 0; i < size; i++)
 	{
 		new_array[i] = temp->n;
@@ -64,7 +65,7 @@ int is_palindrome(listint_t **head)
 
 	size = linked_list_len(head);
 	i = 0;
-	*new_array = to_array(head, size); 
+	new_array = to_array(head, size); 
 
 	if (size == 1)
 		return (1);
