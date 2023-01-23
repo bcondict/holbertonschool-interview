@@ -55,12 +55,16 @@ int *to_array(listint_t **head, int size)
 
 int is_palindrome(listint_t **head)
 {
+	int size = 0;
+	int i = 0;
+	int *new_array = NULL;
+
 	if (*head == NULL)
 		return (1);
 
-	int size = linked_list_len(head);
-	int i = 0;
-	int *new_array = to_array(head, size); 
+	size = linked_list_len(head);
+	i = 0;
+	*new_array = to_array(head, size); 
 
 	if (size == 1)
 		return (1);
