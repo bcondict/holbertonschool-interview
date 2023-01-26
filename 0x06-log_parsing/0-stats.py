@@ -54,5 +54,6 @@ if __name__ == "__main__":
                     to_print()
             except Exception:
                 break
+        to_print()
     except KeyboardInterrupt:
         to_print()
