@@ -4,7 +4,6 @@
 
 import sys
 import ipaddress
-from dateutil.parser import parse
 
 
 stdinput = sys.stdin
@@ -20,9 +19,9 @@ def to_print():
         if i in status_dict:
             print("{}: {}".format(i, status_dict[i]))
 
+
 if __name__ == "__main__":
     """Prints statics from the begenin"""
-
 
     try:
         for idx, line in enumerate(stdinput):
@@ -34,7 +33,6 @@ if __name__ == "__main__":
             file_size = int(data[8])
 
             try:
-                parse(date)
                 if not ipaddress.IPv4Address(ip):
                     print("0")
                     break
