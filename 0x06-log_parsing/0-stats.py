@@ -1,9 +1,14 @@
 #!/usr/bin/python3
+"""Script to reads stdin and computes metrics"""
+
+
 import sys
 import ipaddress
 from dateutil.parser import parse
 
+
 def is_valid_ip(ip):
+    """Check if an IP is a valid IP"""
     try:
         ipaddress.IPv4Address(ip)
         return True
@@ -12,6 +17,7 @@ def is_valid_ip(ip):
 
 
 def validator():
+    """Prints statics from the begenin"""
     stdinput = sys.stdin
     status_code = [200, 301,  400, 401, 403, 404, 405, 500]
     status_dict = {}
@@ -50,12 +56,13 @@ def validator():
                     for i in status_code:
                         if i in status_dict:
                             print("{}: {}".format(i, status_dict[i]))
-            except:
+            except Exception:
                 break
     except KeyboardInterrupt:
         print("File size: {}".format(final_size))
         for i in status_code:
             if i in status_dict:
                 print("{}: {}".format(i, status_dict[i]))
+
 
 validator()
