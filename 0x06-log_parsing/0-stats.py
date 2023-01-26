@@ -29,7 +29,7 @@ if __name__ == "__main__":
             data = line.split(" ")
             try:
                 ip = data[0]
-                date = data[1].replace("[", "") + " " + data[2].replace("]", "")
+                date = data[1].replace("[", "")+" "+data[2].replace("]", "")
                 method_str = data[3] + " " + data[4] + " " + data[5]
                 status = data[6]
                 file_size = int(data[7])
