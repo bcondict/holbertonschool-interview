@@ -7,21 +7,22 @@ import ipaddress
 from dateutil.parser import parse
 
 
-def is_valid_ip(ip):
-    """Check if an IP is a valid IP"""
-    try:
-        ipaddress.IPv4Address(ip)
-        return True
-    except ValueError:
-        return False
+stdinput = sys.stdin
+status_code = [200, 301,  400, 401, 403, 404, 405, 500]
+status_dict = {}
+final_size = 0
 
 
-def validator():
+def to_print():
+    """function to print in format"""
+    print("File size: {}".format(final_size))
+    for i in status_code:
+        if i in status_dict:
+            print("{}: {}".format(i, status_dict[i]))
+
+if __name__ == "__main__":
     """Prints statics from the begenin"""
-    stdinput = sys.stdin
-    status_code = [200, 301,  400, 401, 403, 404, 405, 500]
-    status_dict = {}
-    final_size = 0
+
 
     try:
         for idx, line in enumerate(stdinput):
@@ -34,7 +35,7 @@ def validator():
 
             try:
                 parse(date)
-                if not is_valid_ip(ip):
+                if not ipaddress.IPv4Address(ip):
                     print("0")
                     break
                 if method_str != "\"GET /projects/260 HTTP/1.1\"":
@@ -52,17 +53,8 @@ def validator():
                 final_size += file_size
 
                 if idx != 0 and (idx + 1) % 10 == 0:
-                    print("File size: {}".format(final_size))
-                    for i in status_code:
-                        if i in status_dict:
-                            print("{}: {}".format(i, status_dict[i]))
+                    to_print()
             except Exception:
                 break
     except KeyboardInterrupt:
-        print("File size: {}".format(final_size))
-        for i in status_code:
-            if i in status_dict:
-                print("{}: {}".format(i, status_dict[i]))
-
-
-validator()
+        to_print()
