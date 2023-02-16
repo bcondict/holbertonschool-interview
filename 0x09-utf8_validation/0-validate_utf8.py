@@ -18,9 +18,17 @@ def validUTF8(data):
     returns:
         True if data is valid UTF-8 encoding, False otherwise
     """
-    if type(data) is not list:
-        return False
-    for i in data:
-        if type(i) is not int:
+    valid = 0
+    for value in data:
+        byte = value & 255
+        if valid:
+            if byte >> 6 != 2:
+                return False
+            valid -= 1
+            continue
+        while (1 << abs(7 - valid)) & byte:
+            valid += 1
+        if valid == 1 or valid > 4:
             return False
-    return True
+        valid = max(valid - 1, 0)
+    return valid == 0
