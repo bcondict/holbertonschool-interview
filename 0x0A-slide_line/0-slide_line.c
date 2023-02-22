@@ -17,39 +17,30 @@ void slide_left(int *line, int size)
 
 	/*sum all the possible numbers without order and save it on left num*/
 	for (i = 0; i < size; i++)
+	{
+		if (line[i] != 0)
 		{
-			/*ignore 0 numbers*/
-			if (line[i] != 0)
+			if (last_val != 0 && last_val == line[i])
 			{
-				/*check if there was a number before and 
-				if that number is equal to current number and adds them*/
-				if (last_val != 0 && last_val == line[i])
-				{
-					line[last_idx] = last_val + line[i];
-					line[i] = 0;
-				}
-
-				/*last number found*/
-				last_val = line[i];
-
-				/*checks for index where is the last number*/
-				last_idx = i;
+				line[last_idx] = last_val + line[i];
+				line[i] = 0;
 			}
+			last_val = line[i];
+			last_idx = i;
 		}
+	}
 
 	last_idx = 0;
-	/*sort all the numbers to the left side*/
+	/*
+	*sort all the numbers to the left side
+	* saving first occurrence and place num in it
+	*/
 	for (i = 0; i < size; i++)
 	{
-		/*if ther's a number on index 0 skip it*/
 		if (i == 0 && line[i] != 0)
 			last_idx += 1;
-		/*if current num is 0 and there was a number before
-		saves where should be place the next num*/
 		else if (line[i] == 0 && line[i - 1] != 0)
 			last_idx = i;
-		/*if current num is not 0 but last was,
-		replace first 0 found with it*/
 		else if (line[i] != 0 && line[i - 1] == 0)
 		{
 			line[last_idx] = line[i];
@@ -76,40 +67,30 @@ void slide_right(int *line, int size)
 
 	/*sum all the possible numbers without order and save it on right num*/
 	for (i = size; i >= 0; i--)
+	{
+		if (line[i] != 0)
 		{
-			/*ignore 0 numbers*/
-			if (line[i] != 0)
+			if (last_val != 0 && last_val == line[i])
 			{
-				/*check if there was a number before and 
-				if that number is equal to current number and adds them*/
-				if (last_val != 0 && last_val == line[i])
-				{
-					line[last_idx] = last_val + line[i];
-					line[i] = 0;
-				}
-
-				/*last number found*/
-				last_val = line[i];
-
-				/*checks for index where is the last number*/
-				last_idx = i;
+				line[last_idx] = last_val + line[i];
+				line[i] = 0;
 			}
+			last_val = line[i];
+			last_idx = i;
 		}
+	}
 
 	last_idx = size;
-	/*sort all the numbers to the right side*/
+	/*
+	* sort all the numbers to the right side
+	* saving first occurrence and place num in it
+	*/
 	for (i = size - 1; i >= 0; i--)
 	{
-		/*ignore the first num*/
 		if (i == size - 1)
 			last_idx -= 1;
-		/*if current is 0 and num at right is not 0
-		saves it's place where need to be next num*/
 		else if (line[i] == 0 && line[i + 1] != 0)
 			last_idx = i;
-
-		/*if current num is not 0 and num next to it is
-		replace the first 0 found with it*/
 		else if (line[i] != 0 && line[i + 1] == 0)
 		{
 			line[last_idx] = line[i];
