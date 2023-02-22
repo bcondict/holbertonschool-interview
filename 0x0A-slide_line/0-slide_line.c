@@ -133,17 +133,17 @@ int slide_line(int *line, size_t size, int direction)
 {
 	int new_size = (int) size;
 
-	if (!line || (direction != SLIDE_LEFT && direction != slide_right))
+	if (!line || (direction != SLIDE_LEFT && direction != SLIDE_RIGHT))
 		return (0);
 
 	/*slide and merge to left side*/
-	if (direction == 0)
+	if (direction == SLIDE_LEFT)
 	{
 		slide_left(line, new_size);
 	}
 
 	/*slide and merge to right side*/
-	if (direction == 1)
+	if (direction == SLIDE_RIGHT)
 	{
 		slide_right(line, new_size);
 	}
