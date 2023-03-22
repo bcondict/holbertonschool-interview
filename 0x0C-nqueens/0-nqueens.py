@@ -126,7 +126,7 @@ def main():
                 if last position reached and the board is not full
             '''
             if (i == queen_num - 1 and j == queen_num - 1 and
-                len(board) < queen_num):
+                    len(board) < queen_num):
 
                 '''
                     add new forbidden position to the dictionary
