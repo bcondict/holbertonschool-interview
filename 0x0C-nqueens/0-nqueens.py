@@ -72,8 +72,8 @@ def main():
 
                 if all are valid add a new queen to the board in the position
             '''
-            if (last_queen != [i, j] and valid([i, j], board)
-                and [i, j] not in forbidden and [i, j]
+            if (last_queen != [i, j] and valid([i, j], board) and
+                [i, j] not in forbidden and [i, j]
                     not in new_dict[current_queen]):
 
                 current_queen += 1
@@ -125,8 +125,8 @@ def main():
             '''
                 if last position reached and the board is not full
             '''
-            if (i == queen_num - 1 and j == queen_num - 1
-                    and len(board) < queen_num):
+            if (i == queen_num - 1 and j == queen_num - 1 and
+                len(board) < queen_num):
 
                 '''
                     add new forbidden position to the dictionary
