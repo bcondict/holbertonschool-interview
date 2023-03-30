@@ -4,9 +4,10 @@
  * sorted_array_to_avl - builds an AVL tree from an array
  *
  * @array: pointer to the first element of the array to be converted
- * @size: number of element in the array 
+ * @size: number of element in the array
  *
- * Return: avl_t* pointer to the root node of the created AVL tree, or NULL on failure
+ * Return: avl_t* pointer to the root node of the created AVL tree
+ * or NULL on failure
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
@@ -14,13 +15,13 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	size_t mid = 0;
 
 	if (!array || size == 0)
-		return NULL;
+		return (NULL);
 
 	root = malloc(sizeof(avl_t));
 	if (!root)
-		return NULL;
+		return (NULL);
 
-	mid = (size / 2) ;
+	mid = (size / 2);
 	root->n = array[mid];
 	root->parent = NULL;
 	root->left = sorted_array_to_avl(array, mid);
@@ -31,5 +32,5 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 	if (root->right)
 		root->right->parent = root;
 
-	return root;
+	return (root);
 }
