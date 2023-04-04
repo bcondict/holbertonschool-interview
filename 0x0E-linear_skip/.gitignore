@@ -1,0 +1,2 @@
+# ignore all files except the ones listed 
+*skiplist.c
