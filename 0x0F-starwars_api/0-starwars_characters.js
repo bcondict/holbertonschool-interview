@@ -1,16 +1,38 @@
 #!/usr/bin/node
 
-let args = parseInt(Array.prototype.slice.call(process.argv, 2));
-const fetch = require('node-fetch');
+const args = process.argv[2];
+const request = require('request');
 const url = 'https://swapi-api.hbtn.io/api/films/' + args;
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    for (let i = 0; i < data.characters.length; i++) {
-      fetch(data.characters[i])
-        .then(response => response.json())
-        .then(data => console.log(data.name));
+function makeRequest(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(body);
+      }
+    });
+  });
+}
+
+makeRequest(url)
+  .then((body) => {
+    const data = JSON.parse(body).characters;
+    const promises = [];
+    // for (let i = 0; i < data.length; i++) {
+    //   promises.push(makeRequest(data[i]));
+    // }
+    for (const url of data) {
+      promises.push(makeRequest(url));
+    }
+    return Promise.all(promises);
+  })
+  .then((responses) => {
+    for (let i = 0; i < responses.length; i++) {
+      console.log(JSON.parse(responses[i]).name);
     }
   })
-  .catch(err => console.error(err));
+  .catch((error) => {
+    console.error(error);
+  });
