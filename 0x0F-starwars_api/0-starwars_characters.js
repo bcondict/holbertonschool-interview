@@ -4,7 +4,7 @@ const args = process.argv[2];
 const request = require('request');
 const url = 'https://swapi-api.hbtn.io/api/films/' + args;
 
-function makeRequest(url) {
+function makeRequest (url) {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
       if (error) {
