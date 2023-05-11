@@ -43,7 +43,7 @@ def count_words(subreddit, word_list, counts={}, after=''):
                     counts[word.lower()] += ocurrences
 
     if after:
-        count_words(subreddit, word_list, counts, after)
+        return count_words(subreddit, word_list, counts, after)
 
     else:
         if not counts:
@@ -52,3 +52,5 @@ def count_words(subreddit, word_list, counts={}, after=''):
         sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
         for word, count in sorted_counts:
             print("{}: {}".format(word, count))
+
+    return
