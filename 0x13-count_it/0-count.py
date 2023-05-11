@@ -7,7 +7,7 @@ given keywords (case-insensitive, delimited by spaces
 import requests
 
 
-def count_words(subreddit, word_list, counts={}, after=None):
+def count_words(subreddit, word_list, counts={}, after=''):
     """
         method that queries the Reddit API, parses the title of all hot
         articles and prints a sorted count of given keywords
@@ -42,6 +42,7 @@ def count_words(subreddit, word_list, counts={}, after=None):
                 else:
                     counts[word.lower()] += ocurrences
 
+    if after:
         count_words(subreddit, word_list, counts, after)
 
     else:
