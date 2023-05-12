@@ -21,9 +21,8 @@ def count_words(subreddit, word_list, counts={}, after=''):
     if after is None:
         sorted_counts = dict(sorted(
             counts.items(),
-            key=lambda x: (x[1], x[0]),
-            reverse=True
-            ))
+            key=lambda x: (-x[1], x[0]),
+        ))
         for word, count in sorted_counts.items():
             if count > 0:
                 print("{}: {}".format(word, count))
