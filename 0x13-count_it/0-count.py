@@ -13,11 +13,25 @@ def count_words(subreddit, word_list, counts={}, after=''):
         articles and prints a sorted count of given keywords
         (case-insensitive, delimited by spaces.
     """
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
 
-    headers = {'User-agent': 'holberton_school'}
+    if len(counts) <= 0:
+        for word in word_list:
+            counts[word.lower()] = 0
+
+    if after is None:
+        sorted_counts = dict(sorted(
+            counts.items(),
+            key=lambda x: (x[1], x[0]),
+            reverse=True
+            ))
+        for word, count in sorted_counts.items():
+            if count > 0:
+                print("{}: {}".format(word, count))
+        return None
+
+    url = "https://api.reddit.com/r/{}/hot.json".format(subreddit)
     params = {'limit': 100, 'after': after}
-
+    headers = {'user-agent': 'holberton_school'}
     response = requests.get(
         url,
         headers=headers,
@@ -26,31 +40,13 @@ def count_words(subreddit, word_list, counts={}, after=''):
     )
 
     if response.status_code != 200:
-        return
+        return None
 
-    data = response.json().get('data').get('children')
-    after = response.json().get('data').get('after')
-
-    for child in data:
-        title = child.get('data').get('title').lower()
-
+    after = response.json().get("data").get("after")
+    children = response.json().get("data").get("children")
+    for child in children:
+        title = child.get("data").get("title").lower().split(" ")
         for word in word_list:
-            ocurrences = title.count(word.lower())
-            if ocurrences > 0:
-                if word.lower() not in counts:
-                    counts[word.lower()] = ocurrences
-                else:
-                    counts[word.lower()] += ocurrences
-
-    if after:
-        return count_words(subreddit, word_list, counts, after)
-
-    else:
-        if not counts:
-            return
-
-        sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
-        for word, count in sorted_counts:
-            print("{}: {}".format(word, count))
-
-    return
+            counts[word.lower()] += title.count(
+                word.lower())
+    count_words(subreddit, word_list, counts, after)
