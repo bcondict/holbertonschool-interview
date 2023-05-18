@@ -9,8 +9,8 @@
  */
 int heap_extract(heap_t **root)
 {
-	int value;
-	heap_t *node;
+	int value = 0;
+	binary_tree_t *node = NULL;
 
 	if (!root || !*root)
 		return (0);
