@@ -1,0 +1,87 @@
+#include "holberton.h"
+
+void print_error(void)
+{
+    _putchar('E');
+	_putchar('r');
+	_putchar('r');
+	_putchar('o');
+	_putchar('r');
+	_putchar('\n');
+	exit(98);
+}
+
+int check_digit(char *num)
+{
+	for (int i = 0; num[i] != '\0'; i++)
+	{
+		if (!isdigit(num[i]))
+			return (-1);
+	}
+
+	return (1);
+}
+
+/**
+ * @main - bla
+ *
+ * @ac:
+ * @av:
+ *
+ * Return int
+ */
+int main(int ac, char *av[])
+{
+	char *num1 = NULL, *num2 = NULL;
+	int valid = 0;
+
+	if (ac != 3)
+	{
+		print_error();
+	}
+
+	num1 = av[1];
+	num2 = av[2];
+
+	valid = check_digit(num1);
+	if (valid == -1)
+		print_error();
+	valid = check_digit(num2);
+	if (valid == -1)
+		print_error();
+
+	mpz_t num1_int, num2_int, result, temp;
+	mpz_init(num1_int);
+	mpz_init(num2_int);
+	mpz_init(result);
+	mpz_init(temp);
+
+	mpz_set_str(num1_int, av[1], 10);
+	mpz_set_str(num2_int, av[2], 10);
+
+	mpz_mul(result, num1_int, num2_int);
+
+	char *result_str = mpz_get_str(NULL, 10, result);
+
+	int n_digits = strlen(result_str);
+	temp = result;
+	for (int i = n_digits - 1; i >= 0; i--)
+	{
+		int digit = temp / pow(10, i);
+
+		char_digit = digit + '0';
+		_putchar(char_digit);
+
+		temp %= (int)pow(10, i);
+	}
+	_putchar('\n');
+
+	free(result_str);
+
+	mpz_clear(num1_int);
+	mpz_clear(num2_int);
+	mpz_clear(result);
+	mpz_clear(temp);
+
+	return (0);
+}
