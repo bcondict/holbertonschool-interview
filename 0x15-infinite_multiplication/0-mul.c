@@ -128,6 +128,13 @@ int main(int argc, char **argv)
 			print_error();
 	}
 
+	if (num1[0] == '0' || num2[0] == '0')
+		{
+		_putchar('0');
+		_putchar('\n');
+		return (0);
+	}
+
 	result = multiply(num1, num2);
 	print_result(result);
 
