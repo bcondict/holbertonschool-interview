@@ -34,7 +34,6 @@ int main(int argc, char **argv)
 
 	result = multiply(num1, num2);
 	print_result(result);
-	// free(result);
 
 	return (0);
 }
