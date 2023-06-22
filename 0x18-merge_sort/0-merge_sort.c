@@ -19,7 +19,7 @@ void merge_sort(int *array, size_t size)
 	if (copy == NULL)
 		return;
 
-	merge_sort_recursive(array, copy, 0, size - 1);
+	merge_sort_recursive(array, copy, size);
 	free(copy);
 }
 
@@ -34,17 +34,16 @@ void merge_sort(int *array, size_t size)
  *
  * Return: Nothing
  */
-void merge_sort_recursive(int *array, int *copy, int start, int end)
+void merge_sort_recursive(int *array, int *copy, int end)
 {
-	int mid;
+	int mid = end / 2;
 
-	if (start < end)
-	{
-		mid = (start  + end) / 2;
-		merge_sort_recursive(array, copy, start, mid);
-		merge_sort_recursive(array, copy, mid + 1, end);
-		merge(array, copy, start, mid, end);
-	}
+	if (end <= 1)
+		return;
+
+	merge_sort_recursive(array, copy, mid);
+	merge_sort_recursive(&array[mid], copy, end - mid);
+	merge(array, copy, mid, end);
 }
 
 /**
@@ -58,34 +57,46 @@ void merge_sort_recursive(int *array, int *copy, int start, int end)
  *
  * Return: Nothing
 */
-void merge(int *array, int *copy, int start, int mid, int end)
+void merge(int *array, int *copy, int mid, int end)
 {
-	int i, j, k;
+	// int i, j, k;
+	int left = 0, right = mid, index = 0;
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(array + start, mid - start + 1);
+	print_array(array, mid);
 	printf("[right]: ");
-	print_array(array + mid + 1, end - mid);
+	print_array(&array[mid], end - mid);
 
-	for (i = start, j = mid + 1, k = start; i <= mid && j <= end; k++)
+	for (index = 0, right = mid; left < mid && right < end; index++)
 	{
-		if (array[i] <= array[j])
-			copy[k] = array[i++];
+		if (array[left] <= array[right])
+		{
+			copy[index] = array[left];
+			left++;
+		}
 		else
-			copy[k] = array[j++];
+		{
+			copy[index] = array[right];
+			right++;
+		}
 	}
 
-	while (i <= mid)
-		copy[k++] = array[i++];
+	while (left < mid)
+	{
+		copy[index]= array[left];
+		index++, left++;
+	}
 
-	while (j <= end)
-		copy[k++] = array[j++];
+	while (right <= end)
+	{
+		copy[index] = array[right];
+		index++, right++;
+	}
 
-	for (i = start; i <= end; i++)
-		array[i] = copy[i];
+	for (index = 0; index < end; index++)
+		array[index] = copy[index];
 
 	printf("[Done]: ");
-	print_array(array + start, end - start + 1);
+	print_array(array, end);
 }
-
