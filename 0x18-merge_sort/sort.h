@@ -8,7 +8,7 @@
 /* Prototypes */
 void print_array(const int *array, size_t size);
 void merge_sort(int *array, size_t size);
-void merge_sort_recursive(int *array, int *copy, int iBegin, int iEnd);
-void merge(int *array, int *copy, int iBegin, int iMiddle, int iEnd);
+void merge_sort_recursive(int *array, int *copy, int end);
+void merge(int *array, int *copy, int mid, int end);
 
 #endif /* _SORT_H_ */
