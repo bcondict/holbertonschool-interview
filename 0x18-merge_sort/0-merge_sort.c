@@ -8,7 +8,7 @@
  *
  * Return: Nothing
  */
-void merge_sort(int *array, size_t size) 
+void merge_sort(int *array, size_t size)
 {
 	int *copy;
 
@@ -29,7 +29,6 @@ void merge_sort(int *array, size_t size)
  *
  * @array: The array to be sorted
  * @copy: copy of array
- * @start: start of array
  * @end: end of array
  *
  * Return: Nothing
@@ -51,7 +50,6 @@ void merge_sort_recursive(int *array, int *copy, int end)
  *
  * @array: The array to be sorted
  * @copy: copy of array
- * @start: left part of array
  * @mid: middle part of array
  * @end: end of array
  *
@@ -59,7 +57,6 @@ void merge_sort_recursive(int *array, int *copy, int end)
 */
 void merge(int *array, int *copy, int mid, int end)
 {
-	// int i, j, k;
 	int left = 0, right = mid, index = 0;
 
 	printf("Merging...\n");
@@ -84,7 +81,7 @@ void merge(int *array, int *copy, int mid, int end)
 
 	while (left < mid)
 	{
-		copy[index]= array[left];
+		copy[index] = array[left];
 		index++, left++;
 	}
 
