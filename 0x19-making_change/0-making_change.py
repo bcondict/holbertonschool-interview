@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 Make change module
 """
@@ -24,7 +23,7 @@ def makeChange(coins, total):
     cpy_total = total
     len_coins = len(coins)
 
-    while(i < len_coins and cpy_total > 0):
+    while (i < len_coins and cpy_total > 0):
         if (cpy_total - coins[i]) >= 0:
             cpy_total -= coins[i]
             ncoins += 1
