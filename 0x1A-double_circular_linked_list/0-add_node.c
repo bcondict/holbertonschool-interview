@@ -16,7 +16,7 @@ List *create_node(char *str)
 		return (NULL);
 
 	node->str = strdup(str);
-	if (node->str == NULL)
+    if (node->str == NULL)
 	{
 		free(node);
 		return (NULL);
@@ -40,6 +40,9 @@ List *create_node(char *str)
 List *add_node_end(List **list, char *str)
 {
 	List *node = NULL;
+
+	if (list == NULL)
+		return (NULL);
 
 	node = create_node(str);
 	if (node == NULL)
@@ -75,6 +78,9 @@ List *add_node_end(List **list, char *str)
 List *add_node_begin(List **list, char *str)
 {
 	List *node = NULL;
+
+	if (list == NULL)
+		return (NULL);
 
 	node = create_node(str);
 	if (node == NULL)

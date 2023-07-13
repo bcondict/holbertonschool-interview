@@ -55,3 +55,47 @@ Create the source file `0-add_node.c` that contains the following functions:
     - `List`: the list to modify
         - `str`: the string to copy into the new node
         - Returns: Address of the new node, or `NULL` on failure
+
+### Compiler
+```bash
+gcc -Wall -Werror -Wextra -pedantic 0-main.c 0-add_node.c
+```
+
+### Example
+```bash
+$ ./a.out
+Holberton
+        ->prev: Engineer
+        ->next: School
+School
+        ->prev: Holberton
+        ->next: Full
+Full
+        ->prev: School
+        ->next: Stack
+Stack
+        ->prev: Full
+        ->next: Engineer
+Engineer
+        ->prev: Stack
+        ->next: Holberton
+Added to the beginning:
+Engineer
+        ->prev: Holberton
+        ->next: Stack
+Stack
+        ->prev: Engineer
+        ->next: Full
+Full
+        ->prev: Stack
+        ->next: School
+School
+        ->prev: Full
+        ->next: Holberton
+Holberton
+        ->prev: School
+        ->next: Engineer
+```
+
+## Author
+@bcondict

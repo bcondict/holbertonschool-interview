@@ -26,6 +26,7 @@ typedef struct List
 /* Prototypes */
 List *add_node_end(List **list, char *str);
 List *add_node_begin(List **list, char *str);
+List *create_node(char *str);
 
 
 #endif /* _LIST_H_ */
