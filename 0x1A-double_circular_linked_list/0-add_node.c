@@ -16,7 +16,7 @@ List *create_node(char *str)
 		return (NULL);
 
 	node->str = strdup(str);
-    if (node->str == NULL)
+	if (node->str == NULL)
 	{
 		free(node);
 		return (NULL);
