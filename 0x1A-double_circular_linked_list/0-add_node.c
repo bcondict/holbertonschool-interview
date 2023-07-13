@@ -94,6 +94,7 @@ List *add_node_begin(List **list, char *str)
 		node->next = *list;
 		(*list)->prev = node;
 		(*list)->prev->next = node;
+		*list = node;
 	}
 
 	return (node);
