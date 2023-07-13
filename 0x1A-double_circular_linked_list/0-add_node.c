@@ -84,7 +84,7 @@ List *add_node_begin(List **list, char *str)
 	{
 		node->next = node;
 		node->prev = node;
-		return (node);
+		*list = node;
 	}
 
 	else
