@@ -1,23 +1,16 @@
 #include "list.h"
 
 /**
- * add_node_end - Add a new node to the end of a double circular
- *               linked list
+ * create_node - Create a new node
  *
- * @list: A pointer to the head of the double circular linked list
  * @str: The string to copy into the new node
  *
- * Return: A pointer to the newly added node, or NULL on failure
-*/
-List *add_node_end(List **list, char *str)
+ * Return: A pointer to the new node, or NULL on failure
+ */
+List *create_node(char *str)
 {
-	List *node = NULL;
-	List *last_node = *list;
+	List *node = malloc(sizeof(List));
 
-	if (list == NULL)
-		return (NULL);
-
-	node = malloc(sizeof(char));
 	if (node == NULL)
 		return (NULL);
 
@@ -31,19 +24,44 @@ List *add_node_end(List **list, char *str)
 	node->next = NULL;
 	node->prev = NULL;
 
+	return (node);
+}
+
+/**
+ * add_node_end - Add a new node to the end of a double circular
+ *               linked list
+ *
+ * @list: A pointer to the head of the double circular linked list
+ * @str: The string to copy into the new node
+ *
+ * Return: A pointer to the newly added node, or NULL on failure
+*/
+List *add_node_end(List **list, char *str)
+{
+	List *node = NULL;
+
+	if (list == NULL)
+		return (NULL);
+
+	node = create_node(str);
+	if (node == NULL)
+		return (NULL);
+
 	if (*list == NULL)
 	{
 		node->next = node;
 		node->prev = node;
 		*list = node;
-		return (node);
 	}
 
-	last_node = (*list)->prev;
-	node->prev = last_node;
-	node->next = *list;
-	last_node->next = node;
-	(*list)->prev = node;
+	else
+	{
+		node->prev = (*list)->prev;
+		node->next = *list;
+		(*list)->prev->next = node;
+		(*list)->prev = node;
+		*list = node;
+	}
 
 	return (node);
 }
@@ -60,23 +78,13 @@ List *add_node_end(List **list, char *str)
 List *add_node_begin(List **list, char *str)
 {
 	List *node = NULL;
-	List *last_node = *list;
 
 	if (list == NULL)
 		return (NULL);
 
-	node = malloc(sizeof(char));
+	node = create_node(str);
 	if (node == NULL)
 		return (NULL);
-
-	node->str = strdup(str);
-	if (node->str == NULL)
-	{
-		free(node);
-		return (NULL);
-	}
-	node->next = NULL;
-	node->prev = NULL;
 
 	if (*list == NULL)
 	{
@@ -85,11 +93,13 @@ List *add_node_begin(List **list, char *str)
 		return (node);
 	}
 
-	last_node = (*list)->prev;
-	node->prev = last_node;
-	node->next = *list;
-	(*list)->prev = node;
-	last_node->next = node;
+	else
+	{
+		node->prev = (*list)->prev;
+		node->next = *list;
+		(*list)->prev = node;
+		(*list)->prev->next = node;
+	}
 
 	return (node);
 }
