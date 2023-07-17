@@ -1,0 +1,135 @@
+#include "sort.h"
+
+/**
+ * radix_sort - sorts an array of integers in ascending order
+ *				using the Radix sort algorithm
+ *
+ * @array: array to be sorted
+ * @size: size of array
+ *
+ * Return: Always void
+*/
+void radix_sort(int *array, size_t size)
+{
+	int len = length_greatest_number(array, size);
+	int i = 0;
+	int digit = 0;
+
+	if (size < 2)
+	{
+		return;
+	}
+
+	for (i = 0; i < len; i++)
+	{
+		digit = (int) custom_pow(10, i);
+		significant_digit(array, size, digit);
+	}
+}
+
+/**
+ * custom_pow - recreation of a power operation
+ *
+ * @base: base number to power
+ * @exponent: exponent of the number to power
+ *
+ * Return: Result of power a base by an exponent
+*/
+double custom_pow(double base, int exponent)
+{
+	double result = 1.0;
+	int i;
+
+	if (exponent >= 0)
+	{
+		for (i = 0; i < exponent; i++)
+			result *= base;
+		return (result);
+	}
+
+	for (i = 0; i > exponent; i--)
+		result /= base;
+
+	return (result);
+}
+
+/**
+ * swap - swap the two given numbers
+ *
+ * @first_pointer: pointer to first number to swap
+ * @second_pointer: pointer to second number to swap
+ *
+ * Return: Always void
+*/
+void swap(int *first_pointer, int *second_pointer)
+{
+	int temp = *first_pointer;
+	*first_pointer = *second_pointer;
+	*second_pointer = temp;
+}
+
+/**
+ * significant_digit - travels acros significant digits and swap their position
+ *
+ * @array: to be modified
+ * @size: size of array
+ * @digit: digit to be checked
+ *
+ * Return: Always void
+*/
+void significant_digit(int *array, size_t size, int digit)
+{
+	size_t i = 0, j = 0;
+	int temp = 0;
+
+	for (i = 0; i < size - 1; i++)
+	{
+		for (j = i + 1; j < size; j++)
+			if ((array[j] / digit) % 10 < (array[temp] / digit) % 10)
+			temp = j;
+		swap(&array[temp], &array[i]);
+	}
+	print_array(array, size);
+}
+
+/**
+ * length_greatest_number - returns the length of the greatest
+ *							number in an array
+ *
+ * @array: array to be checked
+ * @size: size of array
+ *
+ * Return: length of greatest number
+*/
+int length_greatest_number(int *array, size_t size)
+{
+	int greatest_number = array[0];
+	int len_greatest_num = 0;
+	int temp = 0, digit_count = 0;
+	size_t i = 0;
+
+	for (i = 1; i < size; i++)
+	{
+		if (array[i] > greatest_number)
+		{
+			greatest_number = array[i];
+			len_greatest_num = 0; /* Reset the length counter */
+		}
+
+		temp = array[i];
+		digit_count = 0;
+
+		while (temp != 0)
+		{
+			temp /= 10;
+			digit_count++;
+		}
+		if (digit_count > len_greatest_num)
+		{
+			len_greatest_num = digit_count;
+		}
+	}
+
+	return (len_greatest_num);
+}
+
