@@ -17,6 +17,7 @@ void radix_sort(int *array, size_t size)
 
 	if (size < 2)
 	{
+		print_array(array, size);
 		return;
 	}
 
@@ -85,8 +86,14 @@ void significant_digit(int *array, size_t size, int digit)
 	for (i = 0; i < size - 1; i++)
 	{
 		for (j = i + 1; j < size; j++)
+		{
 			if ((array[j] / digit) % 10 < (array[temp] / digit) % 10)
-			temp = j;
+			{
+				temp = j;
+			}
+		}
+		if (temp == (int) i && temp == 0)
+			continue;
 		swap(&array[temp], &array[i]);
 	}
 	print_array(array, size);
