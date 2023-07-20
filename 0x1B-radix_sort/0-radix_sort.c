@@ -1,6 +1,64 @@
 #include "sort.h"
 
 /**
+ * find_max - find the maximum number in an array
+ *
+ * @array: array to be sorted
+ * @size: size of array
+ *
+ * Return: Maximum number in array
+*/
+int find_max(int *array, size_t size)
+{
+	int max = array[0];
+	size_t i;
+
+	for (i = 1; i < size; i++)
+		if (array[i] > max)
+			max = array[i];
+
+	return (max);
+}
+
+/**
+ * count_sort - sorts an array of integers in ascending order
+ *				using the Counting sort algorithm
+ *
+ * @array: array to be sorted
+ * @size: size of array
+ * @exp: exponent of the number to power
+ *
+ * Return: Always void
+*/
+void count_sort(int *array, size_t size, int exp)
+{
+	int *output = NULL;
+	int count[10] = {0};
+	size_t i;
+
+	output = malloc(sizeof(int) * size);
+	if (!output)
+		return;
+
+	for (i = 0; i < size; i++)
+		count[(array[i] / exp) % 10]++;
+
+	for (i = 1; i < 10; i++)
+		count[i] += count[i - 1];
+
+	for (i = size - 1; (int) i >= 0; i--)
+	{
+		output[count[(array[i] / exp) % 10] - 1] = array[i];
+		count[(array[i] / exp) % 10]--;
+	}
+
+	for (i = 0; i < size; i++)
+		array[i] = output[i];
+
+	free(output);
+}
+
+/**
  * radix_sort - sorts an array of integers in ascending order
  *				using the Radix sort algorithm
  *
@@ -11,132 +69,17 @@
 */
 void radix_sort(int *array, size_t size)
 {
-	int len = length_greatest_number(array, size);
-	int i = 0;
-	int digit = 0;
+	int max = 0;
+	int exp = 0;
 
-	if (size < 2)
-	{
-		print_array(array, size);
+	if (!array || size < 2)
 		return;
-	}
 
-	for (i = 0; i < len; i++)
+	max = find_max(array, size);
+
+	for (exp = 1; max / exp > 0; exp *= 10)
 	{
-		digit = (int) custom_pow(10, i);
-		significant_digit(array, size, digit);
+		count_sort(array, size, exp);
+		print_array(array, size);
 	}
 }
-
-/**
- * custom_pow - recreation of a power operation
- *
- * @base: base number to power
- * @exponent: exponent of the number to power
- *
- * Return: Result of power a base by an exponent
-*/
-double custom_pow(double base, int exponent)
-{
-	double result = 1.0;
-	int i;
-
-	if (exponent >= 0)
-	{
-		for (i = 0; i < exponent; i++)
-			result *= base;
-		return (result);
-	}
-
-	for (i = 0; i > exponent; i--)
-		result /= base;
-
-	return (result);
-}
-
-/**
- * swap - swap the two given numbers
- *
- * @first_pointer: pointer to first number to swap
- * @second_pointer: pointer to second number to swap
- *
- * Return: Always void
-*/
-void swap(int *first_pointer, int *second_pointer)
-{
-	int temp = *first_pointer;
-	*first_pointer = *second_pointer;
-	*second_pointer = temp;
-}
-
-/**
- * significant_digit - travels acros significant digits and swap their position
- *
- * @array: to be modified
- * @size: size of array
- * @digit: digit to be checked
- *
- * Return: Always void
-*/
-void significant_digit(int *array, size_t size, int digit)
-{
-	size_t i = 0, j = 0;
-	int temp = 0;
-
-	for (i = 0; i < size - 1; i++)
-	{
-		for (j = i + 1; j < size; j++)
-		{
-			if ((array[j] / digit) % 10 < (array[temp] / digit) % 10)
-			{
-				temp = j;
-			}
-		}
-		if (temp == (int) i && temp == 0)
-			continue;
-		swap(&array[temp], &array[i]);
-	}
-	print_array(array, size);
-}
-
-/**
- * length_greatest_number - returns the length of the greatest
- *							number in an array
- *
- * @array: array to be checked
- * @size: size of array
- *
- * Return: length of greatest number
-*/
-int length_greatest_number(int *array, size_t size)
-{
-	int greatest_number = array[0];
-	int len_greatest_num = 0;
-	int temp = 0, digit_count = 0;
-	size_t i = 0;
-
-	for (i = 1; i < size; i++)
-	{
-		if (array[i] > greatest_number)
-		{
-			greatest_number = array[i];
-			len_greatest_num = 0; /* Reset the length counter */
-		}
-
-		temp = array[i];
-		digit_count = 0;
-
-		while (temp != 0)
-		{
-			temp /= 10;
-			digit_count++;
-		}
-		if (digit_count > len_greatest_num)
-		{
-			len_greatest_num = digit_count;
-		}
-	}
-
-	return (len_greatest_num);
-}
-
