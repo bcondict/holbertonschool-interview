@@ -20,9 +20,6 @@ makeRequest(url)
   .then((body) => {
     const data = JSON.parse(body).characters;
     const promises = [];
-    // for (let i = 0; i < data.length; i++) {
-    //   promises.push(makeRequest(data[i]));
-    // }
     for (const url of data) {
       promises.push(makeRequest(url));
     }
