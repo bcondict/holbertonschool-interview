@@ -30,8 +30,8 @@ typedef struct binary_tree_s binary_tree_t;
 /* PROTOTYPES*/
 void binary_tree_print(const binary_tree_t *);
 int binary_tree_is_avl(const binary_tree_t *tree);
-int max(int a, int b);
-int binary_tree_height(const binary_tree_t *tree);
+size_t binary_tree_height(const binary_tree_t *tree);
+int bal_avl(const binary_tree_t *tree, int lower, int high);
 
 
 #endif /* _BINARY_TREES_H_ */
