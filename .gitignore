@@ -1,4 +1,14 @@
-*/*main.py
+# */*main.py
 *__pycache__
 # */*main.c
+*/*1-main.py
+*/lib*.a
 */2-my_nqueens
+*/*merge
+*/1-*
+*/2-*
+*/3-*
+*/3-heap_extract.c
+*/a.out
+*/0-radix_sort
+makefile
